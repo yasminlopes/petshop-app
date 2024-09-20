@@ -1,8 +1,23 @@
-import React from 'react';
+import './index.css';
+import Sidebar from './components/sidebar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <p>app works!</p>
+    <Router>
+      <div className="flex h-screen">
+        <Sidebar />
+
+        <div className="flex-1 ml-64 p-10 bg-base-200"> 
+          <Routes>
+            <Route path="/produtos" element={<p>works!</p>} />
+            <Route path="/servicos" element={<p>works!</p>} />
+            <Route path="/clientes" element={<p>works!</p>} />
+            <Route path="/" element={<p>works!</p>} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
