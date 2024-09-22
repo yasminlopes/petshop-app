@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Subcategory } from '../models/subcategory';
 import { fetcher } from '../utils/axios';
