@@ -8,7 +8,7 @@ interface ProductListProps {
 }
 
 const ProductList: React.FC<ProductListProps> = ({ products, filters, onDelete }) => {
-  
+
   const filteredProducts = products.filter(product => {
     const matchesNome = product.nome.toLowerCase().includes(filters.nome.toLowerCase());
     const matchesPreco = (!filters.precoMin || product.preco >= Number(filters.precoMin)) &&
@@ -29,7 +29,10 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onDelete }
         <thead className="bg-accent-content text-white sticky top-0"> 
           <tr>
             <th className="py-2 px-4">Produto</th>
+            <th className="py-2 px-4">Descrição</th>
             <th className="py-2 px-4">Preço</th>
+            <th className="py-2 px-4">Estoque</th>
+            <th className="py-2 px-4">Subcategoria</th>
             <th className="py-2 px-4">Ações</th>
           </tr>
         </thead>
@@ -38,7 +41,10 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onDelete }
           {sortedProducts.map(product => (
             <tr key={product.num} className="hover:bg-gray-100 transition-colors">
               <td className="py-2 px-4 border-b">{product.nome}</td>
+              <td className="py-2 px-4 border-b">{product.descricao}</td>
               <td className="py-2 px-4 border-b">R${product.preco.toFixed(2)}</td>
+              <td className="py-2 px-4 border-b">{product.estoque}</td>
+              <td className="py-2 px-4 border-b">{product.idSubcategoria}</td>
               <td className="py-2 px-4 border-b">
                 <button className="btn btn-edit mx-2">Editar</button>
                 <button 
