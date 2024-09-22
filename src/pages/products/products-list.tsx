@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaExclamationTriangle } from 'react-icons/fa';
 import { Product } from '../../models/product';
 
 interface ProductListProps {
@@ -23,8 +24,13 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onDelete }
   })
 
   return (
-    <div className="overflow-y-auto max-h-[300px]"> 
-    
+    <div className="overflow-y-auto max-h-[300px]">
+      {sortedProducts.length === 0 ? (
+        <div className="flex flex-col items-center justify-center h-full p-4">
+          <FaExclamationTriangle className="text-4xl text-gray-500 mb-4" />
+          <p className="text-lg text-gray-500">Nenhum produto encontrado</p>
+        </div>
+      ) : (
       <table className="table-auto w-full border border-gray-300">
         <thead className="bg-accent-content text-white sticky top-0"> 
           <tr>
@@ -58,6 +64,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onDelete }
           ))}
         </tbody>
       </table>
+      )}
     </div>
   );
 };
