@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaUsers, FaSignOutAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaUsers, FaSignOutAlt, FaListAlt, FaClipboardList, FaThList } from 'react-icons/fa';
 
 interface SidebarItem {
   label: string;
@@ -14,6 +14,21 @@ const Sidebar: React.FC = () => {
       label: 'Produtos',
       icon: <FaShoppingCart className="text-primary" />,
       link: '/produtos',
+    },
+    {
+      label: 'Categorias',
+      icon: <FaListAlt className="text-primary" />,
+      link: '/categorias',
+    },
+    {
+      label: 'Subcategorias',
+      icon: <FaThList  className="text-primary" />,
+      link: '/subcategorias',
+    },
+    {
+      label: 'Pedidos',
+      icon: <FaClipboardList className="text-primary" />,
+      link: '/pedidos',
     },
     {
       label: 'Clientes',
