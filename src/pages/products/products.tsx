@@ -15,7 +15,7 @@ const Products: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
-  const [newProduct, setNewProduct] = useState({ nome: '', preco: 0, descricao: '', estoque: 0, id_subcategoria: 0 });
+  const [newProduct, setNewProduct] = useState({ nome: '', preco: 0, descricao: '', estoque: 0, idSubcategoria: 0 });
 
   const handleListProducts = useCallback(async () => {
     try {
@@ -33,13 +33,7 @@ const Products: React.FC = () => {
   const fetchProductDetails = async (id: number) => {
     try {
       const { data } = await fetcher(`/api/produto/${id}`);
-      setNewProduct({
-        nome: data?.nome,
-        preco: data?.preco,
-        descricao: data?.descricao,
-        estoque: data?.estoque,
-        id_subcategoria: data?.idSubcategoria,
-      });
+      setNewProduct(data);
       setShowFormModal(true); 
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
@@ -90,7 +84,7 @@ const Products: React.FC = () => {
     setShowDeleteModal(true);
   };
 
-  const mostSoldProduct = products.reduce((prev, current) => (prev.estoque > current.estoque) ? current : prev, products[0] || {});
+  const mostSoldProduct = products.length > 0  ? products.reduce((prev, current) => (prev.estoque > current.estoque) ? prev : current, products[0]) : { nome: 'N/A', estoque: 0 }; 
 
   const totalProducts = products.length;
 
@@ -100,7 +94,7 @@ const Products: React.FC = () => {
         <h1 className="text-4xl font-bold">Produtos</h1>
         <button onClick={() => {
           setSelectedProduct(null); 
-          setNewProduct({ nome: '', preco: 0, descricao: '', estoque: 0, id_subcategoria: 0 }); // Reseta o formulário
+          setNewProduct({ nome: '', preco: 0, descricao: '', estoque: 0, idSubcategoria: 0 }); // Reseta o formulário
           setShowFormModal(true);
         }} className="btn btn-primary">
           Adicionar Produto

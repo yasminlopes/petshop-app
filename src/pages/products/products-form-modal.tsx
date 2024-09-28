@@ -12,8 +12,9 @@ interface Props {
 
 const ProductFormModal: React.FC<Props> = ({ onAddProduct, onUpdateProduct, onClose, newProduct, setNewProduct, isEditing }) => {
 
-  const handleSubcategorySelect = (idSubcategoria: number) => {
-    setNewProduct({ ...newProduct, id_subcategoria: idSubcategoria });
+  // Função que atualiza o produto com a subcategoria selecionada
+  const handleSubcategorySelect = (id: number) => {
+    setNewProduct({ ...newProduct, idSubcategoria: id }); // Atualiza o estado com o ID da subcategoria
   };
 
   const handleSubmit = () => {
@@ -91,7 +92,7 @@ const ProductFormModal: React.FC<Props> = ({ onAddProduct, onUpdateProduct, onCl
             </label>
             <SubcategorySelect 
               onSelect={handleSubcategorySelect}
-              selectedSubcategory={newProduct.id_subcategoria} 
+              selectedSubcategory={newProduct.idSubcategoria}
             />
           </div>
 

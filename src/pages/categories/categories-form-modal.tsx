@@ -18,6 +18,7 @@ const CategoryFormModal: React.FC<Props> = ({ onAdd, onUpdate, onClose, newCateg
       onAdd(newCategory); 
     }
   }
+  
 
   return (
     <div className="modal modal-open">
