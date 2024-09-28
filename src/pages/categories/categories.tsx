@@ -29,9 +29,9 @@ const Categories: React.FC = () => {
     });
   }, [listagem, filters]);
 
-  const handleEdit = (product: any) => {
-    setSelectedCategory(product);
-    fetchCategoryById(product.num);
+  const handleEdit = (item: any) => {
+    setSelectedCategory(item);
+    fetchCategoryById(item.idCategoria);
   };
 
   const fetchCategoryById = async (id: number) => {
