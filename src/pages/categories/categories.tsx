@@ -36,7 +36,7 @@ const Categories: React.FC = () => {
 
   const fetchCategoryById = async (id: number) => {
     try {
-      const { data } = await fetcher(`/api/categorias/${id}`);
+      const { data } = await fetcher(`/api/categoria/${id}`);
       setNewCategory({ nome: data?.nome });
       setShowFormModal(true);
     } catch (error) {
