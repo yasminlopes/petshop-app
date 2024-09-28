@@ -17,3 +17,17 @@ export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
 
   return response.data;
 };
+
+export const post = async (url: string, data: any) => {
+  const response = await axiosInstance.post(url, data);
+
+  return response.data;
+};
+
+export const put = async (url: string, data: any) => {
+  const response = await axiosInstance.put(url, data);
+};
+
+export const destroy = async (url: string, config?: AxiosRequestConfig) => {
+  await axiosInstance.delete(url, config);
+};

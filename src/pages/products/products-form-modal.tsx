@@ -3,21 +3,33 @@ import SubcategorySelect from '../../components/subcategory-select';
 
 interface Props {
   onAddProduct: (product: any) => void;
+  onUpdateProduct: (product: any) => void;
   onClose: () => void;
   newProduct: any;
   setNewProduct: React.Dispatch<React.SetStateAction<any>>;
+  isEditing: boolean; 
 }
 
-const ProductFormModal: React.FC<Props> = ({ onAddProduct, onClose, newProduct, setNewProduct }) => {
+const ProductFormModal: React.FC<Props> = ({ onAddProduct, onUpdateProduct, onClose, newProduct, setNewProduct, isEditing }) => {
 
   const handleSubcategorySelect = (idSubcategoria: number) => {
-    setNewProduct({ ...newProduct, idSubcategoria });
+    setNewProduct({ ...newProduct, id_subcategoria: idSubcategoria });
+  };
+
+  const handleSubmit = () => {
+    if (isEditing) {
+      onUpdateProduct(newProduct); 
+    } else {
+      onAddProduct(newProduct); 
+    }
   };
 
   return (
     <div className="modal modal-open">
-      <div className="modal-box w-full max-w-4xl"> {/* Modal maior */}
-        <h3 className="text-2xl font-semibold mb-4">Adicionar Produto</h3>
+      <div className="modal-box w-full max-w-4xl"> 
+        <h3 className="text-2xl font-semibold mb-4">
+          {isEditing ? 'Editar Produto' : 'Adicionar Produto'}
+        </h3>
 
         <div className="grid grid-cols-2 gap-4">
 
@@ -77,18 +89,19 @@ const ProductFormModal: React.FC<Props> = ({ onAddProduct, onClose, newProduct, 
             <label className="label">
               <span className="label-text">Subcategoria</span>
             </label>
-            <SubcategorySelect onSelectSubcategory={handleSubcategorySelect} />
+            <SubcategorySelect 
+              onSelect={handleSubcategorySelect}
+              selectedSubcategory={newProduct.id_subcategoria} 
+            />
           </div>
 
         </div>
 
         <div className="modal-action mt-4">
-          <button onClick={() => onAddProduct(newProduct)} className="btn btn-primary">
-            Adicionar
+          <button onClick={handleSubmit} className="btn btn-primary">
+            {isEditing ? 'Atualizar Produto' : 'Adicionar Produto'}
           </button>
-          <button onClick={onClose} className="btn">
-            Cancelar
-          </button>
+          <button onClick={onClose} className="btn">Cancelar</button>
         </div>
       </div>
     </div>

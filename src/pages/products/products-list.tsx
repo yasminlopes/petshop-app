@@ -1,15 +1,16 @@
 import React from 'react';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import { FaExclamationTriangle, FaEllipsisV, FaEdit, FaTrash } from 'react-icons/fa';
 import { Product } from '../../models/product';
 
 interface ProductListProps {
   products: Product[];
   filters: any;
-  onDelete: (num: number) => void;
+  onEdit: (product: Product) => void;
+  onDeleteConfirm: (product: Product) => void;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ products, filters, onDelete }) => {
-
+const ProductList: React.FC<ProductListProps> = ({ products, filters, onEdit, onDeleteConfirm }) => {
+  
   const filteredProducts = products.filter(product => {
     const matchesNome = product.nome.toLowerCase().includes(filters.nome.toLowerCase());
     const matchesPreco = (!filters.precoMin || product.preco >= Number(filters.precoMin)) &&
@@ -52,13 +53,26 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onDelete }
               <td className="py-2 px-4 border-b">{product.estoque}</td>
               <td className="py-2 px-4 border-b">{product.idSubcategoria}</td>
               <td className="py-2 px-4 border-b">
-                <button className="btn btn-edit mx-2">Editar</button>
-                <button 
-                  onClick={() => onDelete(product.num)} 
-                  className="btn btn-delete"
-                >
-                  Excluir
-                </button>
+                <div className="dropdown dropdown-left">
+                  <label tabIndex={0} className="btn btn-sm m-1">
+                    <FaEllipsisV />
+                  </label>
+                  <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                      <button className="flex items-center" onClick={() => onEdit(product)}>
+                        <FaEdit className="mr-2" /> Editar
+                      </button>
+                    </li>
+                    <li>
+                      <button 
+                        className="flex items-center"
+                        onClick={() => onDeleteConfirm(product)}
+                      >
+                        <FaTrash className="mr-2" /> Excluir
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </td>
             </tr>
           ))}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaUsers, FaSignOutAlt, FaListAlt, FaClipboardList, FaThList } from 'react-icons/fa';
+import { GiMonkey } from "react-icons/gi";
 
 interface SidebarItem {
   label: string;
@@ -12,7 +13,7 @@ const Sidebar: React.FC = () => {
   const items: SidebarItem[] = [
     {
       label: 'Produtos',
-      icon: <FaShoppingCart className="text-primary" />,
+      icon: <FaShoppingCart className="text-primary" />, 
       link: '/produtos',
     },
     {
@@ -22,7 +23,7 @@ const Sidebar: React.FC = () => {
     },
     {
       label: 'Subcategorias',
-      icon: <FaThList  className="text-primary" />,
+      icon: <FaThList className="text-primary" />,
       link: '/subcategorias',
     },
     {
@@ -45,11 +46,8 @@ const Sidebar: React.FC = () => {
   return (
     <aside className="fixed top-0 left-0 h-full w-64 bg-white text-gray-800 shadow-md">
       <div className="flex items-center p-4 text-gray-800">
-        <img
-          src="/assets/brand/petstation.svg"
-          alt="PetStation Logo"
-          className="w-32 h-32"
-        />
+        <GiMonkey className="text-4xl mr-2" /> {/* Ícone maior */}
+        <span className="text-xl font-bold">PetStation</span>
       </div>
       <ul className="menu p-4">
         {items.map((item, index) => (
