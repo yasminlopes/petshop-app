@@ -26,7 +26,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOwner }) => {
           link: '/categorias',
         },
         {
-          label: 'Clients',
+          label: 'Subcategorias',
+          icon: <FaThList />,
+          link: '/subcategorias',
+        },
+        {
+          label: 'Clientes',
           icon: <FaUsers />,
           link: '/clientes',
         },
