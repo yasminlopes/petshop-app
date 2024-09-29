@@ -5,25 +5,17 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Categories from './pages/categories/categories';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Subcategories from './pages/subcategories/subcategories';
 
 function App() {
   const [isOwner, setIsOwner] = useState(false);
-  const navigate = useNavigate(); 
 
   const toggleRole = () => {
     const newRole = !isOwner; 
     setIsOwner(newRole);
     localStorage.setItem('userRole', newRole ? 'owner' : 'client');
   };
-
-  useEffect(() => {
-    if (isOwner) {
-      navigate('/produtos')
-    } else {
-      navigate('/pedidos')
-    }
-  }, [isOwner, navigate]);
 
   return (
     <div className="flex h-screen">
@@ -33,8 +25,9 @@ function App() {
         <Routes>
           {isOwner ? ( 
             <>
-              <Route path="/produtos" element={<Products />} />
+              <Route path="/produtos" element={<Products/>} />
               <Route path="/categorias" element={<Categories />} />
+              <Route path="/subcategorias" element={<Subcategories/>} />
               <Route path="/clientes" element={<p>Owner View of Clients!</p>} />
               <Route path="/" element={<Products />} />
             </>
