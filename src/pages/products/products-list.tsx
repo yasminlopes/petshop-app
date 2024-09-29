@@ -36,7 +36,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onEdit, on
         </div>
       ) : (
       <table className="table-auto w-full border border-gray-300">
-        <thead className="bg-accent-content text-white sticky top-0"> 
+        <thead className="bg-gray-900 text-gray-300 sticky top-0 z-50"> 
           <tr>
             <th className="py-2 px-4">Produto</th>
             <th className="py-2 px-4">Descrição</th>
@@ -60,7 +60,10 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onEdit, on
                   <label tabIndex={0} className="btn btn-sm m-1">
                     <FaEllipsisV />
                   </label>
-                  <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                  <ul
+                      tabIndex={0}
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 " 
+                    >
                     <li>
                       <button className="flex items-center" onClick={() => onEdit(product)}>
                         <FaEdit className="mr-2" /> Editar

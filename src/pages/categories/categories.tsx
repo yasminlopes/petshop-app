@@ -83,8 +83,8 @@ const Categories: React.FC = () => {
           setSelectedCategory(null);
           setNewCategory({ nome: '' });
           setShowFormModal(true);
-        }} className="btn btn-primary">
-          Adicionar
+        }} className="btn bg-gray-900 text-gray-300">
+          Cadastrar
         </button>
       </div>
 

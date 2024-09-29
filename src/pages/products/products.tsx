@@ -123,8 +123,8 @@ const Products: React.FC = () => {
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-4xl font-bold">Produtos</h1>
-        <button onClick={handleOpenAddModal} className="btn btn-primary">
-          Adicionar Produto
+        <button onClick={handleOpenAddModal} className="btn bg-gray-900 text-gray-300">
+        Cadastrar
         </button>
       </div>
 

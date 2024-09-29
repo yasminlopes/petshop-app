@@ -8,11 +8,11 @@ interface TotalizerProps {
 
 const TotalizersPanel: React.FC<TotalizerProps> = ({ icon, title, value }) => {
   return (
-    <div className="bg-white p-6 rounded-md shadow-md flex items-center border border-gray-200">
-      <div className="text-4xl text-blue-600 mr-4">{icon}</div>
+    <div className="bg-gray-900 p-6 rounded-md shadow-md flex items-center border border-gray-200">
+      <div className="text-4xl text-primary mr-4">{icon}</div>
       <div>
-        <h2 className="text-xl font-semibold">{title}</h2>
-        <p className="text-lg">{value}</p>
+        <h2 className="text-xl font-semibold text-white">{title}</h2>
+        <p className="text-lg text-white">{value}</p>
       </div>
     </div>
   )

@@ -24,7 +24,7 @@ const CategoryFormModal: React.FC<Props> = ({ onAdd, onUpdate, onClose, newCateg
     <div className="modal modal-open">
       <div className="modal-box w-full "> 
         <h3 className="text-2xl font-semibold mb-4">
-          {isEditing ? 'Editar Categoria' : 'Adicionar Categoria'}
+          {isEditing ? 'Editar Categoria' : 'Cadastrar Categoria'}
         </h3>
 
         <div className="grid ">
@@ -45,8 +45,8 @@ const CategoryFormModal: React.FC<Props> = ({ onAdd, onUpdate, onClose, newCateg
         </div>
 
         <div className="modal-action mt-4">
-          <button onClick={handleSubmit} className="btn btn-primary">
-            {isEditing ? 'Atualizar' : 'Adicionar'}
+          <button onClick={handleSubmit} className="btn bg-gray-900 text-gray-300">
+            {isEditing ? 'Atualizar' : 'Cadastrar'}
           </button>
           <button onClick={onClose} className="btn">Cancelar</button>
         </div>

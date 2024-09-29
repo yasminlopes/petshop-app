@@ -25,21 +25,6 @@ const Sidebar: React.FC = () => {
       icon: <FaThList />,
       link: '/subcategorias',
     },
-    {
-      label: 'Pedidos',
-      icon: <FaClipboardList />,
-      link: '/pedidos',
-    },
-    {
-      label: 'Clientes',
-      icon: <FaUsers />,
-      link: '/clientes',
-    },
-    {
-      label: 'Logout',
-      icon: <FaSignOutAlt />,
-      link: '/logout',
-    },
   ];
 
   return (

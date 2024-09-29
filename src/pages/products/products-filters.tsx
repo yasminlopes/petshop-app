@@ -31,7 +31,7 @@ const ProductsFilters: React.FC<FiltersProps> = ({ filters, setFilters }) => {
 
         <div className="relative">
           <button
-            className="btn bg-primary text-white dropdown-toggle flex items-center"
+            className="btn bg-gray-900 text-gray-300 dropdown-toggle flex items-center"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
             <span className="mr-2">

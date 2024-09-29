@@ -28,7 +28,7 @@ const ProductFormModal: React.FC<Props> = ({ onAddProduct, onUpdateProduct, onCl
     <div className="modal modal-open">
       <div className="modal-box w-full max-w-4xl"> 
         <h3 className="text-2xl font-semibold mb-4">
-          {isEditing ? 'Editar Produto' : 'Adicionar Produto'}
+          {isEditing ? 'Editar Produto' : 'Cadastrar Produto'}
         </h3>
 
         <div className="grid grid-cols-2 gap-4">
@@ -98,8 +98,8 @@ const ProductFormModal: React.FC<Props> = ({ onAddProduct, onUpdateProduct, onCl
         </div>
 
         <div className="modal-action mt-4">
-          <button onClick={handleSubmit} className="btn btn-primary">
-            {isEditing ? 'Atualizar Produto' : 'Adicionar Produto'}
+          <button onClick={handleSubmit} className="btn bg-gray-900 text-gray-300">
+            {isEditing ? 'Atualizar' : 'Cadastrar'}
           </button>
           <button onClick={onClose} className="btn">Cancelar</button>
         </div>
