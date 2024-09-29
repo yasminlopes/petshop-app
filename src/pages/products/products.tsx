@@ -15,7 +15,14 @@ const Products: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
-  const [newProduct, setNewProduct] = useState({ nome: '', preco: 0, descricao: '', estoque: 0, idSubcategoria: 0 });
+  const [newProduct, setNewProduct] = useState({
+    num: 0,
+    nome: '',
+    preco: 0,
+    estoque: 0,
+    descricao: '',
+    idSubcategoria: 0
+  });
 
   const handleListProducts = useCallback(async () => {
     try {
@@ -32,9 +39,18 @@ const Products: React.FC = () => {
 
   const fetchProductDetails = async (id: number) => {
     try {
-      const { data } = await fetcher(`/api/produto/${id}`);
-      setNewProduct(data);
-      setShowFormModal(true); 
+      const data = await fetcher(`/api/produto/${id}`);
+      setNewProduct({
+        num: data?.num,
+        nome: data?.nome,
+        preco: data?.preco,
+        estoque: data?.estoque,
+        descricao: data?.descricao,
+        idSubcategoria: data?.idSubcategoria
+      });
+
+      setSelectedProduct(data); 
+      setShowFormModal(true);
     } catch (error) {
       console.error('Erro ao buscar produto:', error);
     }
@@ -58,6 +74,7 @@ const Products: React.FC = () => {
       await put(`/api/produto/${product.num}`, product);
       setProducts(products.map((p) => (p.num === product.num ? product : p)));
       setShowFormModal(false);
+      toast.success('Produto atualizado com sucesso!');
     } catch (error) {
       toast.error('Erro ao atualizar produto');
     }
@@ -74,8 +91,20 @@ const Products: React.FC = () => {
     }
   };
 
+  const handleOpenAddModal = () => {
+    setSelectedProduct(null);
+    setNewProduct({
+      num: 0,
+      nome: '',
+      preco: 0,
+      descricao: '',
+      estoque: 0,
+      idSubcategoria: 0
+    })
+    setShowFormModal(true); 
+  };
+
   const handleEditProduct = (product: any) => {
-    setSelectedProduct(product);
     fetchProductDetails(product.num);
   };
 
@@ -94,15 +123,11 @@ const Products: React.FC = () => {
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-4xl font-bold">Produtos</h1>
-        <button onClick={() => {
-          setSelectedProduct(null); 
-          setNewProduct({ nome: '', preco: 0, descricao: '', estoque: 0, idSubcategoria: 0 }); // Reseta o formulário
-          setShowFormModal(true);
-        }} className="btn btn-primary">
+        <button onClick={handleOpenAddModal} className="btn btn-primary">
           Adicionar Produto
         </button>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <TotalizersPanel
           icon={<AiOutlineStar />}
@@ -117,7 +142,7 @@ const Products: React.FC = () => {
       </div>
 
       <ProductsFilters filters={filters} setFilters={setFilters} />
-      
+
       <ProductList 
         products={products} 
         filters={filters} 

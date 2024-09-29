@@ -12,9 +12,8 @@ interface Props {
 
 const ProductFormModal: React.FC<Props> = ({ onAddProduct, onUpdateProduct, onClose, newProduct, setNewProduct, isEditing }) => {
 
-  // Função que atualiza o produto com a subcategoria selecionada
   const handleSubcategorySelect = (id: number) => {
-    setNewProduct({ ...newProduct, idSubcategoria: id }); // Atualiza o estado com o ID da subcategoria
+    setNewProduct({ ...newProduct, idSubcategoria: id })
   };
 
   const handleSubmit = () => {
