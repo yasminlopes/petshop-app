@@ -36,23 +36,38 @@ const Categories: React.FC = () => {
 
   const fetchCategoryById = async (id: number) => {
     try {
-      const { data } = await fetcher(`/api/categoria/${id}`);
+      const data = await fetcher(`/api/categoria/${id}`);
       setNewCategory({ nome: data?.nome });
       setShowFormModal(true);
     } catch (error) {
-      console.error('Erro ao buscar produto:', error);
+      console.error('Erro ao buscar categoria:', error);
     }
   };
 
-  const handleAddCategory = async (category: any) => {
-    try {
-      const response = await post('/api/criar-categoria', category);
-      setNewCategory(response.data);
-      setShowFormModal(false);
-      toast.success('Category cadastrada com sucesso!');
+    const handleAddCategory = async (category: any) => {
+        try {
+            const response = await post('/api/criar-categoria', category);
+            setNewCategory(response.data);
+            setShowFormModal(false);
+            toast.success('Categoria cadastrada com sucesso!');
+            handleListCategories();
+        } catch (error) {
+            toast.error('Erro ao cadastrar a categoria');
+        }
+    };
+
+    const handleUpdateCategory = async (category: any) => {
+        try {
+            const response = await post(`/api/update-categoria`, {
+              nome: category.nome,
+              idCategoria: selectedCategory.idCategoria
+            });
+            setNewCategory(response.data);
+            setShowFormModal(false);
+            toast.success('Categoria atualizada com sucesso!');
       handleListCategories();
     } catch (error) {
-      toast.error('Erro ao cadastrar o produto');
+      toast.error('Erro ao atualizar a categoria');
     }
   };
 
@@ -66,7 +81,7 @@ const Categories: React.FC = () => {
         <h1 className="text-4xl font-bold">Categorias</h1>
         <button onClick={() => {
           setSelectedCategory(null);
-          setNewCategory({ nome: '' }); // Reseta o formulário
+          setNewCategory({ nome: '' });
           setShowFormModal(true);
         }} className="btn btn-primary">
           Adicionar
@@ -84,7 +99,7 @@ const Categories: React.FC = () => {
       {showFormModal && (
         <CategoryFormModal
           onAdd={handleAddCategory}
-          onUpdate={handleEdit}
+          onUpdate={handleUpdateCategory}
           onClose={() => setShowFormModal(false)}
           newCategory={newCategory}
           setNewCategory={setNewCategory}

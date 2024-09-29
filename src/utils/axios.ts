@@ -26,6 +26,8 @@ export const post = async (url: string, data: any) => {
 
 export const put = async (url: string, data: any) => {
   const response = await axiosInstance.put(url, data);
+
+  return response.data;
 };
 
 export const destroy = async (url: string, config?: AxiosRequestConfig) => {
