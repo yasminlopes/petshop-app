@@ -84,7 +84,9 @@ const Products: React.FC = () => {
     setShowDeleteModal(true);
   };
 
-  const mostSoldProduct = products.length > 0  ? products.reduce((prev, current) => (prev.estoque > current.estoque) ? prev : current, products[0]) : { nome: 'N/A', estoque: 0 }; 
+  const mostSoldProduct = products.length > 0  
+  ? products.reduce((prev, current) => (current?.estoque && prev?.estoque && prev.estoque > current.estoque) ? prev : current, products[0])
+  : { nome: 'N/A', estoque: 0 };
 
   const totalProducts = products.length;
 

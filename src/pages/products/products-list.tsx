@@ -12,13 +12,16 @@ interface ProductListProps {
 const ProductList: React.FC<ProductListProps> = ({ products, filters, onEdit, onDeleteConfirm }) => {
   
   const filteredProducts = products.filter(product => {
+    if (!product || !product.nome)  return false
+    
     const matchesNome = product.nome.toLowerCase().includes(filters.nome.toLowerCase());
     const matchesPreco = (!filters.precoMin || product.preco >= Number(filters.precoMin)) &&
                          (!filters.precoMax || product.preco <= Number(filters.precoMax));
     const matchesEstoque = (!filters.estoqueMin || product.estoque >= Number(filters.estoqueMin));
-    
+  
     return matchesNome && matchesPreco && matchesEstoque;
-  })
+  });
+  
 
   const sortedProducts = filteredProducts.sort((a, b) => {
     return filters.orderBy === 'asc' ? a.preco - b.preco : b.preco - a.preco;
@@ -46,12 +49,12 @@ const ProductList: React.FC<ProductListProps> = ({ products, filters, onEdit, on
 
         <tbody>
           {sortedProducts.map(product => (
-            <tr key={product.num} className="hover:bg-gray-100 transition-colors">
-              <td className="py-2 px-4 border-b">{product.nome}</td>
-              <td className="py-2 px-4 border-b">{product.descricao}</td>
-              <td className="py-2 px-4 border-b">R${product.preco.toFixed(2)}</td>
-              <td className="py-2 px-4 border-b">{product.estoque}</td>
-              <td className="py-2 px-4 border-b">{product.idSubcategoria}</td>
+            <tr key={product?.num} className="hover:bg-gray-100 transition-colors">
+              <td className="py-2 px-4 border-b">{product?.nome}</td>
+              <td className="py-2 px-4 border-b">{product?.descricao}</td>
+              <td className="py-2 px-4 border-b">R${product?.preco.toFixed(2)}</td>
+              <td className="py-2 px-4 border-b">{product?.estoque}</td>
+              <td className="py-2 px-4 border-b">{product?.idSubcategoria}</td>
               <td className="py-2 px-4 border-b">
                 <div className="dropdown dropdown-left">
                   <label tabIndex={0} className="btn btn-sm m-1">
