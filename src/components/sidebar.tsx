@@ -8,31 +8,43 @@ interface SidebarItem {
   link: string;
 }
 
-const Sidebar: React.FC = () => {
-  const items: SidebarItem[] = [
-    {
-      label: 'Produtos',
-      icon: <FaShoppingCart />,
-      link: '/produtos',
-    },
-    {
-      label: 'Categorias',
-      icon: <FaListAlt />,
-      link: '/categorias',
-    },
-    {
-      label: 'Subcategorias',
-      icon: <FaThList />,
-      link: '/subcategorias',
-    },
-  ];
+interface SidebarProps {
+  isOwner: boolean;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOwner }) => {
+  const items: SidebarItem[] = isOwner
+    ? [  // Dono (Owner)
+        {
+          label: 'Products',
+          icon: <FaShoppingCart />,
+          link: '/produtos',
+        },
+        {
+          label: 'Categories',
+          icon: <FaListAlt />,
+          link: '/categorias',
+        },
+        {
+          label: 'Clients',
+          icon: <FaUsers />,
+          link: '/clientes',
+        },
+      ]
+    : [  // Cliente
+        {
+          label: 'Pedidos',
+          icon: <FaClipboardList />,
+          link: '/pedidos',
+        },
+      ];
 
   return (
     <aside className="fixed top-0 left-0 h-full w-64 bg-gray-900 text-gray-300 shadow-lg transition-all">
       <div className="flex items-center justify-center p-6 text-gray-100">
         <img
           src="/assets/brand/logo.svg"
-          alt="PetStation Logo"
+          alt="Logo"
           className="w-32 h-32"
         />
       </div>
