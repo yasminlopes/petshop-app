@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import CategoriesList from './categories-list';
 import CategoriesFilters from './categories-filters';
-import { fetcher, post } from '../../utils/axios';
+import { destroy, fetcher, post, put } from '../../utils/axios';
 import CategoryFormModal from './categories-form-modal';
 import { toast } from 'react-toastify';
 
@@ -9,6 +9,7 @@ const Categories: React.FC = () => {
     const [filters, setFilters] = useState<{ [key: string]: string }>({});
   const [listagem, setListagem] = useState<any[]>([]);
   const [showFormModal, setShowFormModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<any>(null);
   const [newCategory, setNewCategory] = useState({ nome: '' });
 
@@ -32,6 +33,11 @@ const Categories: React.FC = () => {
   const handleEdit = (item: any) => {
     setSelectedCategory(item);
     fetchCategoryById(item.idCategoria);
+  };
+
+  const handleDeleteConfirm = (category: any) => {
+    setSelectedCategory(category);
+    setShowDeleteModal(true);
   };
 
   const fetchCategoryById = async (id: number) => {
@@ -71,6 +77,17 @@ const Categories: React.FC = () => {
     }
   };
 
+  const handleDeleteCategory = async () => {
+    try {
+      await destroy(`/api/delete-categoria/${selectedCategory.idCategoria}`);
+      setListagem(listagem.filter(subcategory => subcategory.idCategoria !== selectedCategory.idCategoria));
+      setShowDeleteModal(false);
+      toast.success('Categoria excluído com sucesso!');
+    } catch (error) {
+      toast.error('Erro ao excluir categoria');
+    }
+  };
+
   useEffect(() => {
     handleListCategories();
   }, [handleListCategories]);
@@ -93,7 +110,7 @@ const Categories: React.FC = () => {
       <CategoriesList
         categories={filteredCategories}
         onEdit={handleEdit}
-        onDeleteConfirm={() => alert('Confirma a exclusão?')}
+        onDeleteConfirm = {handleDeleteConfirm}
       />
 
       {showFormModal && (
@@ -105,6 +122,19 @@ const Categories: React.FC = () => {
           setNewCategory={setNewCategory}
           isEditing={!!selectedCategory}
         />
+      )}
+
+      {showDeleteModal && (
+        <div className="modal modal-open">
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Confirmar Exclusão</h3>
+            <p className="py-4">Tem certeza que deseja excluir a categoria"{selectedCategory?.nome}"?</p>
+            <div className="modal-action">
+              <button onClick={handleDeleteCategory} className="btn btn-error">Excluir</button>
+              <button onClick={() => setShowDeleteModal(false)} className="btn">Cancelar</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
