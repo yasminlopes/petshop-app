@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaShoppingCart, FaUsers, FaSignOutAlt, FaListAlt, FaClipboardList, FaThList } from 'react-icons/fa';
+import { FaShoppingCart, FaUsers, FaSignOutAlt, FaListAlt, FaClipboardList, FaThList, FaChartPie } from 'react-icons/fa';
 
 interface SidebarItem {
   label: string;
@@ -15,6 +15,11 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOwner }) => {
   const items: SidebarItem[] = isOwner
     ? [  // Dono (Owner)
+        {
+          label: 'Dashboard',
+          icon: <FaChartPie  />,
+          link: '/dashboard',
+        },
         {
           label: 'Products',
           icon: <FaShoppingCart />,

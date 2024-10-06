@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Categories from './pages/categories/categories';
 import { useState } from 'react';
 import Subcategories from './pages/subcategories/subcategories';
+import Dashboard from './pages/dashboard/dashboard';
 
 function App() {
   const [isOwner, setIsOwner] = useState(false);
@@ -28,8 +29,9 @@ function App() {
               <Route path="/produtos" element={<Products/>} />
               <Route path="/categorias" element={<Categories />} />
               <Route path="/subcategorias" element={<Subcategories/>} />
+              <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/clientes" element={<p>Owner View of Clients!</p>} />
-              <Route path="/" element={<Products />} />
+              <Route path="/" element={<Dashboard />} />
             </>
           ) : (  
             <>
