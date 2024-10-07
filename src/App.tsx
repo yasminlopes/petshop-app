@@ -8,6 +8,8 @@ import Categories from './pages/categories/categories';
 import { useState } from 'react';
 import Subcategories from './pages/subcategories/subcategories';
 import Dashboard from './pages/dashboard/dashboard';
+import Clients from './pages/clients/clients';
+
 
 function App() {
   const [isOwner, setIsOwner] = useState(false);
@@ -29,8 +31,8 @@ function App() {
               <Route path="/produtos" element={<Products/>} />
               <Route path="/categorias" element={<Categories />} />
               <Route path="/subcategorias" element={<Subcategories/>} />
+              <Route path="/clientes" element={<Clients/>} />
               <Route path="/dashboard" element={<Dashboard/>} />
-              <Route path="/clientes" element={<p>Owner View of Clients!</p>} />
               <Route path="/" element={<Dashboard />} />
             </>
           ) : (  
