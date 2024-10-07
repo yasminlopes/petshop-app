@@ -3,6 +3,7 @@ import PieChart from '../../components/pie-chart';
 import { fetcher } from '../../utils/axios';
 import Card from '../../components/card';
 import BarChart from '../../components/bar-chart';
+import LineChart from '../../components/line-chart';
 
 interface ProductData {
   categoriaNome: string;
@@ -17,10 +18,23 @@ interface ClientData {
   numeroPedidos: number;
 }
 
+interface SubcategoryData {
+  nome: string;
+  nomeCategoria: string;
+  faturamentoTotal: number;
+}
+
+interface SubcategoryData {
+  nome: string;
+  nomeCategoria: string;
+  faturamentoTotal: number;
+}
+
 const Dashboard: React.FC = () => {
   const [productData, setProductData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
   const [categoryData, setCategoryData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
   const [clientData, setClientData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
+  const [subcategoryData, setSubcategoryData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
 
   const fetchMostSoldProducts = async () => {
     try {
@@ -64,11 +78,30 @@ const Dashboard: React.FC = () => {
       console.error('Erro ao buscar clientes ativos', error);
     }
   };
+
+  const fetchMostSoldSubcategories = async () => {
+    try {
+      const subcategories = await fetcher('/api/subcategorias-faturamento');
+
+      const subcategoryAggregation: { [key: string]: number } = {};
+      subcategories.forEach((item: SubcategoryData) => {
+        subcategoryAggregation[item.nomeCategoria] = (subcategoryAggregation[item.nomeCategoria] || 0) + item.faturamentoTotal;
+      });
+
+      setSubcategoryData({
+        labels: Object.keys(subcategoryAggregation),
+        values: Object.values(subcategoryAggregation),
+      });
+    } catch (error) {
+      console.error('Erro ao buscar subcategorias', error);
+    }
+  };
   
   useEffect(() => {
-    fetchMostSoldProducts();
+    fetchMostSoldProducts();        
     fetchMostSoldCategories();
     fetchActiveClients(); 
+    fetchMostSoldSubcategories();
   }, []);
 
   return (
@@ -80,14 +113,20 @@ const Dashboard: React.FC = () => {
         </Card>
 
         <Card title="Categorias Mais Vendidas">
-          <PieChart label="Categoria" data={categoryData} />
+          <BarChart label="Categoria" data={categoryData} />
         </Card>
       </div>
 
+
       <div style={{ display: 'flex', gap: '16px', justifyContent: 'space-between' }}>
         <Card title="Clientes Ativos">
-          <BarChart label="Número de Pedidos" data={clientData} /> 
+          <LineChart label="Número de Pedidos" data={clientData} /> 
         </Card>
+
+        <Card title="Subcategorias Mais Vendidas">
+          <LineChart label="Subcategoria" data={subcategoryData} />
+        </Card> 
+
       </div>
     </div>
   );
