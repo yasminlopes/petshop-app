@@ -24,12 +24,6 @@ interface SubcategoryData {
   faturamentoTotal: number;
 }
 
-interface SubcategoryData {
-  nome: string;
-  nomeCategoria: string;
-  faturamentoTotal: number;
-}
-
 const Dashboard: React.FC = () => {
   const [productData, setProductData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
   const [categoryData, setCategoryData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
@@ -105,28 +99,24 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-white">
       <h2 className="text-center">Relatórios</h2>
-      <div style={{ display: 'flex', gap: '16px', justifyContent: 'space-between' }}>
+      <div className="flex flex-wrap gap-4 justify-center">
         <Card title="Produtos Mais Vendidos">
-          <BarChart label="Produto" data={productData} />
+          <PieChart label="Produto" data={productData} />
         </Card>
 
         <Card title="Categorias Mais Vendidas">
-          <BarChart label="Categoria" data={categoryData} />
+          <LineChart label="Categoria" data={categoryData} />
         </Card>
-      </div>
 
-
-      <div style={{ display: 'flex', gap: '16px', justifyContent: 'space-between' }}>
         <Card title="Clientes Ativos">
-          <LineChart label="Número de Pedidos" data={clientData} /> 
+          <BarChart label="Número de Pedidos" data={clientData} />
         </Card>
 
-        <Card title="Subcategorias Mais Vendidas">
-          <LineChart label="Subcategoria" data={subcategoryData} />
-        </Card> 
-
+        <Card title="Subcategorias com Maior Faturamento">
+          <BarChart label="Subcategoria" data={subcategoryData} />
+        </Card>
       </div>
     </div>
   );
