@@ -124,43 +124,50 @@ const Dashboard: React.FC = () => {
     <div className="p-4 bg-white">
       <h2 className="text-center">Relatórios</h2>
       <div className="flex flex-wrap gap-4 justify-center">
-        <Card title="Produtos Mais Vendidos">
-          <PieChart label="Produto" data={productData} />
-        </Card>
+        <div className="w-full md:w-1/2 lg:w-1/3">
+          <Card title="Produtos Mais Vendidos">
+            <PieChart label="Produto" data={productData} />
+          </Card>
+        </div>
 
-        <Card title="Categorias Mais Vendidas">
-          <LineChart label="Categoria" data={categoryData} />
-        </Card>
+        <div className="w-full md:w-1/2 lg:w-1/3">
+          <Card title="Categorias Mais Vendidas">
+            <LineChart label="Categoria" data={categoryData} />
+          </Card>
+        </div>
 
-        <Card title="Clientes Ativos">
-          <BarChart label="Número de Pedidos" data={clientData} />
-        </Card>
+        <div className="w-full md:w-1/2 lg:w-1/3">
+          <Card title="Clientes Ativos">
+            <BarChart label="Número de Pedidos" data={clientData} />
+          </Card>
+        </div>
 
-        <Card title="Subcategorias com Maior Faturamento">
-          <BarChart label="Subcategoria" data={subcategoryData} />
-        </Card>
+        <div className="w-full md:w-1/2 lg:w-1/3">
+          <Card title="Subcategorias com Maior Faturamento">
+            <BarChart label="Subcategoria" data={subcategoryData} />
+          </Card>
+        </div>
 
-        <div>
-          <h3>Vendas por Data</h3>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'space-between', marginBottom: '10px' }}>
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)} 
-              placeholder="Data Início"
-            />
-
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)} 
-              placeholder="Data Fim"
-            />
-          </div>
-
-            <Card title="Vendas por Data">
-              <LineChart label="Vendas" data={salesData} />
-            </Card>
+        <div className="w-full">
+          <Card title="Vendas por Data">
+            <div className="flex gap-4 mb-4">
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)} 
+                placeholder="Data Início"
+                className="flex-grow"
+              />
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)} 
+                placeholder="Data Fim"
+                className="flex-grow"
+              />
+            </div>
+            <LineChart label="Vendas" data={salesData} />
+          </Card>
         </div>
       </div>
     </div>

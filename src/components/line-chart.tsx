@@ -33,9 +33,14 @@ const LineChart: React.FC<LineChartProps> = ({ label, data }) => {
       {
         label: label,
         data: data.values,
-        fill: false,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        tension: 0.1,
+        fill: true, // Preencher abaixo da linha
+        backgroundColor: 'rgba(254, 215, 0, 0.3)', // Amarelo alaranjado suave
+        borderColor: 'rgba(254, 215, 0, 1)', // Amarelo alaranjado
+        tension: 0.4, // Suavizar a linha
+        pointBackgroundColor: 'rgba(210, 153, 2, 1)', // Vermelho para os pontos
+        pointBorderColor: 'rgba(255, 255, 255, 1)', // Branco para os bordes dos pontos
+        pointBorderWidth: 2,
+        pointRadius: 5, // Tamanho dos pontos
       },
     ],
   };
@@ -44,6 +49,14 @@ const LineChart: React.FC<LineChartProps> = ({ label, data }) => {
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+          color: 'rgba(128, 128, 128, 0.2)', // Linhas de grade mais sutis
+        },
+      },
+      x: {
+        grid: {
+          color: 'rgba(128, 128, 128, 0.2)', // Linhas de grade mais sutis
+        },
       },
     },
   };

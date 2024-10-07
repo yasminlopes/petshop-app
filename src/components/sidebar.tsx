@@ -18,11 +18,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOwner }) => {
   const items: SidebarItem[] = isOwner
     ? [  // Dono (Owner)
         {
-          label: 'Dashboard',
-          icon: <FaChartPie />,
-          link: '/dashboard',
-        },
-        {
           label: 'Produtos',
           icon: <FaShoppingCart />,
           link: '/produtos',
@@ -41,6 +36,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOwner }) => {
           label: 'Clientes',
           icon: <FaUsers />,
           link: '/clientes',
+        },
+        {
+          label: 'Dashboard',
+          icon: <FaChartPie />,
+          link: '/dashboard',
         },
       ]
     : [  // Cliente
