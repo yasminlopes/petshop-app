@@ -24,7 +24,7 @@ function App() {
     <div className="flex h-screen">
       <Sidebar isOwner={isOwner} />
 
-      <div className="flex-1 ml-64 p-10 bg-base-200"> 
+      <div className="flex-1 ml-64 p-10"> 
         <Routes>
           {isOwner ? ( 
             <>
