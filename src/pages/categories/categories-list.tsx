@@ -20,7 +20,7 @@ const CategoriesList: React.FC<Props> = ({
 }) => {
  
   return (
-    <div className="overflow-y-auto max-h-[300px]">
+    <div className="overflow-y-auto max-h-[500px]">
       {!categories.length ? (
         <div className="flex flex-col items-center justify-center h-full p-4">
           <FaExclamationTriangle className="text-4xl text-gray-500 mb-4" />

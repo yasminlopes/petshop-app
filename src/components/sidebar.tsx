@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOwner }) => {
               to={item.link}
               className={({ isActive }) =>
                 `flex items-center gap-3 p-3 rounded-lg transition-all ${
-                  isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                  isActive ? 'bg-yellow-500 text-gray-900' : 'text-gray-300 hover:bg-yellow-500 hover:text-gray-900'
                 }`
               }
             >
