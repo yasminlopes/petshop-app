@@ -24,11 +24,21 @@ interface SubcategoryData {
   faturamentoTotal: number;
 }
 
+interface SalesData {
+  data: string;
+  quantidadeTotal: number;
+}
+
 const Dashboard: React.FC = () => {
   const [productData, setProductData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
   const [categoryData, setCategoryData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
   const [clientData, setClientData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
   const [subcategoryData, setSubcategoryData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
+  
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+  
+  const [salesData, setSalesData] = useState<{ labels: string[], values: number[] }>({ labels: [], values: [] });
 
   const fetchMostSoldProducts = async () => {
     try {
@@ -45,7 +55,6 @@ const Dashboard: React.FC = () => {
   const fetchMostSoldCategories = async () => {
     try {
       const categories = await fetcher('/api/mais-vendidos-categoria');
-
       const categoryAggregation: { [key: string]: number } = {};
       categories.forEach((item: ProductData) => {
         categoryAggregation[item.categoriaNome] = (categoryAggregation[item.categoriaNome] || 0) + item.totalVendido;
@@ -63,7 +72,6 @@ const Dashboard: React.FC = () => {
   const fetchActiveClients = async () => {
     try {
       const clients = await fetcher('/api/mais-pedidos');
-      
       setClientData({
         labels: clients.map((item: ClientData) => `${item.nome} ${item.sobrenome}`),
         values: clients.map((item: ClientData) => item.numeroPedidos),
@@ -76,7 +84,6 @@ const Dashboard: React.FC = () => {
   const fetchMostSoldSubcategories = async () => {
     try {
       const subcategories = await fetcher('/api/subcategorias-faturamento');
-
       const subcategoryAggregation: { [key: string]: number } = {};
       subcategories.forEach((item: SubcategoryData) => {
         subcategoryAggregation[item.nomeCategoria] = (subcategoryAggregation[item.nomeCategoria] || 0) + item.faturamentoTotal;
@@ -90,13 +97,28 @@ const Dashboard: React.FC = () => {
       console.error('Erro ao buscar subcategorias', error);
     }
   };
-  
+
+  const fetchSalesData = async () => {
+    if (!startDate || !endDate) return;
+
+    try {
+      const sales = await fetcher(`/api/vendas-dia?inicio=${startDate}&fim=${endDate}`);
+      setSalesData({
+        labels: sales.map((item: SalesData) => item.data),
+        values: sales.map((item: SalesData) => item.quantidadeTotal),
+      });
+    } catch (error) {
+      console.error('Erro ao buscar vendas', error);
+    }
+  }
+
   useEffect(() => {
     fetchMostSoldProducts();        
     fetchMostSoldCategories();
     fetchActiveClients(); 
     fetchMostSoldSubcategories();
-  }, []);
+    fetchSalesData();
+  }, [startDate, endDate]);
 
   return (
     <div className="p-4 bg-white">
@@ -117,6 +139,29 @@ const Dashboard: React.FC = () => {
         <Card title="Subcategorias com Maior Faturamento">
           <BarChart label="Subcategoria" data={subcategoryData} />
         </Card>
+
+        <div>
+          <h3>Vendas por Data</h3>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)} 
+              placeholder="Data Início"
+            />
+
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)} 
+              placeholder="Data Fim"
+            />
+          </div>
+
+            <Card title="Vendas por Data">
+              <LineChart label="Vendas" data={salesData} />
+            </Card>
+        </div>
       </div>
     </div>
   );
