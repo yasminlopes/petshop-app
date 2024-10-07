@@ -41,7 +41,7 @@ const ProductsFilters: React.FC<FiltersProps> = ({ filters, setFilters }) => {
           </button>
 
           {isDropdownOpen && (
-            <div className="absolute bg-white border border-gray-300 rounded shadow-md mt-1 z-10">
+            <div className="absolute bg-white border border-gray-300 rounded shadow-md mt-1 z-[75]">
               <label className="block px-4 py-2 cursor-pointer hover:bg-gray-100">
                 <input
                   type="radio"
@@ -65,6 +65,8 @@ const ProductsFilters: React.FC<FiltersProps> = ({ filters, setFilters }) => {
               </label>
             </div>
           )}
+
+
           
         </div>
       </div>
