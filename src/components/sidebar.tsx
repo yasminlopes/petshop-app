@@ -23,12 +23,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOwner }) => {
           link: '/dashboard',
         },
         {
-          label: 'Products',
+          label: 'Produtos',
           icon: <FaShoppingCart />,
           link: '/produtos',
         },
         {
-          label: 'Categories',
+          label: 'Categorias',
           icon: <FaListAlt />,
           link: '/categorias',
         },
